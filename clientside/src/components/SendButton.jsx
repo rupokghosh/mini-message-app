@@ -1,5 +1,7 @@
-const SendButton = () => {
-  return <div>SendButton</div>;
+const SendButton = (onClick) => {
+  return <div>
+    <button onClick={onClick}>Send</button>
+  </div>;
 };
 
 export default SendButton;

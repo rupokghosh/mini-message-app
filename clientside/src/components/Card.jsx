@@ -1,7 +1,9 @@
 
-const Card = () => {
+const Card = ({children}) => {
   return (
-    <div>Card</div>
+    <div>
+      {children}
+    </div>
   )
 }
 

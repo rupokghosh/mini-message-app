@@ -1,7 +1,9 @@
 
-const TextInput = () => {
+const TextInput = ( value, onChange) => {
   return (
-    <div>TextInput</div>
+    <div>
+      <input type="text" placeholder="type your message..." value={value} onChange={onChange}/>
+    </div>
   )
 }
 
