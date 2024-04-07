@@ -1,11 +1,12 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const Chat = require('../../models/Chat');
+const Chat = require("../../models/Chat");
 
 // POST: Send a new message
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
   try {
-    const newMessage = new Chat({ message: req.body.message, sender: req.body.sender });
+    const { sender, message } = req.body;
+    const newMessage = new Chat({ sender, message });
     await newMessage.save();
     res.json(newMessage);
   } catch (err) {
