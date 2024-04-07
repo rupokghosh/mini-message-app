@@ -4,14 +4,38 @@ import Chat from "./components/Chat";
 import SendButton from "./components/SendButton";
 import TextInput from "./components/TextInput";
 import UsernameInput from "./components/UsernameInput";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import io from "socket.io-client";
+
+const socket = io("http://localhost:5000");
 
 function App() {
-  // states
+  // useStates
 
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [username, setUsername] = useState("");
+
+  // useEffects
+
+  useEffect(() => {
+    socket.on("message", (message) => {
+      setMessages((prevMessages) => [...prevMessages, message]);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  //
+
+  const sendMessage = () => {
+    if (input && username) {
+      socket.emit("message", { sender: username, message: input });
+      setInput("");
+    }
+  };
 
   // handle input
 
@@ -22,7 +46,7 @@ function App() {
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
-  
+
   return (
     <>
       <Header />
