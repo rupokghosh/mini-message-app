@@ -7,7 +7,7 @@ import UsernameInput from "./components/UsernameInput";
 import { useState, useEffect } from "react";
 import io from "socket.io-client";
 
-const socket = io("http://localhost:5173");
+const socket = io("http://localhost:3000");
 
 function App() {
   // useStates
@@ -15,9 +15,11 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [username, setUsername] = useState("");
+  
 
   // useEffects
 
+  
   useEffect(() => {
     socket.on("message", (message) => {
       console.log(messages);
@@ -29,7 +31,7 @@ function App() {
     };
   }, [messages]);
 
-  //
+  // send message to backend
   const sendMessage = () => {
     if (input.trim() && username) {
       socket.emit("message", { sender: username, message: input });
