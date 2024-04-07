@@ -7,7 +7,7 @@ import UsernameInput from "./components/UsernameInput";
 import { useState, useEffect } from "react";
 import io from "socket.io-client";
 
-const socket = io("http://localhost:5000");
+const socket = io("http://localhost:5173");
 
 function App() {
   // useStates
@@ -20,18 +20,18 @@ function App() {
 
   useEffect(() => {
     socket.on("message", (message) => {
+      console.log(messages);
       setMessages((prevMessages) => [...prevMessages, message]);
     });
 
     return () => {
       socket.disconnect();
     };
-  }, []);
+  }, [messages]);
 
   //
-
   const sendMessage = () => {
-    if (input && username) {
+    if (input.trim() && username) {
       socket.emit("message", { sender: username, message: input });
       setInput("");
     }
@@ -48,17 +48,19 @@ function App() {
   };
 
   return (
-    <>
+    <div>
       <Header />
-      <Card>
-        <Chat messages={messages} />
-      </Card>
-      <div className="inputContainer">
-        <UsernameInput value={username} onChange={handleUsernameChange} />
-        <TextInput value={input} onChange={handleInputChange} />
-        <SendButton onClick={sendMessage} />
+      <div className="flex flex-col justify-center items-center">
+        <Card>
+          <Chat messages={messages} />
+        </Card>
+        <div className="flex flex-col justify-center items-center gap-2">
+          <UsernameInput value={username} onChange={handleUsernameChange} />
+          <TextInput value={input} onChange={handleInputChange} />
+          <SendButton onClick={sendMessage} />
+        </div>
       </div>
-    </>
+    </div>
   );
 }
 
