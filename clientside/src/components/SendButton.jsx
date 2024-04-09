@@ -4,7 +4,7 @@ const SendButton = ({ onClick }) => {
     <div>
       <button
         onClick={onClick}
-        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline"
+        className="bg-pink-500 hover:bg-pink-800 text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

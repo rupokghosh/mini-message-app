@@ -9,9 +9,9 @@ const chatRoutes = require("./routes/api/chat");
 
 const User = require("./models/User");
 const Chat = require("./models/Chat");
-
 const app = express();
 
+//middleware
 app.use(cors());
 app.use(express.json());
 
@@ -59,6 +59,7 @@ io.on("connection", (socket) => {
     console.log("A user disconnected");
   });
 });
+
 // API routes
 app.use("/api/chat", chatRoutes);
 
