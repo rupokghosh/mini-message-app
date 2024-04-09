@@ -30,7 +30,7 @@ mongoose
 
 // Socket.io connection setup
 io.on("connection", (socket) => {
-  console.log("A user connected");
+  console.log(`User connected: ${socket.id}`);
 
   // Listen for 'message' event from the client
   socket.on("message", async (data) => {
@@ -51,7 +51,7 @@ io.on("connection", (socket) => {
     await chat.save();
 
     // Broadcast the message to all connected clients
-    io.emit("message", data);
+    socket.broadcast.emit("message", data);
   });
 
   // Disconnect event
